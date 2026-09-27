@@ -148,7 +148,7 @@
             <section class="library" aria-label="Song library">
                 
                 <div class="browse">
-                    <div class="browse-top"><h2>Explore the songbook</h2></div>
+                    <div class="browse-top"><h2>Explore the songbook</h2><button class="filter" id="show-all-button" type="button" hidden>Show all songs</button></div>
                     <div class="count-row"><span class="count" id="result-count" aria-live="polite"></span></div>
                     <label class="search-wrap">
                         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
@@ -215,6 +215,7 @@
             let activeFilter = "All songs";
             let activeDeityFilter = "";
             let selectedId = songs[0].id;
+            let selectedOnly = false;
             let toastTimeout;
 
             function renderFilters() {
@@ -228,6 +229,7 @@
                     button.addEventListener("click", () => {
                         activeFilter = category;
                         activeDeityFilter = "";
+                        selectedOnly = false;
                         renderFilters();
                         renderBajanFilters();
                         renderShlokaFilters();
@@ -256,6 +258,7 @@
                     button.setAttribute("aria-pressed", String(activeDeityFilter === deity));
                     button.addEventListener("click", () => {
                         activeDeityFilter = activeDeityFilter === deity ? "" : deity;
+                        selectedOnly = false;
                         renderBajanFilters();
                         renderSongs();
                     });
@@ -281,6 +284,7 @@
                     button.setAttribute("aria-pressed", String(activeDeityFilter === deity));
                     button.addEventListener("click", () => {
                         activeDeityFilter = activeDeityFilter === deity ? "" : deity;
+                        selectedOnly = false;
                         renderShlokaFilters();
                         renderSongs();
                     });
@@ -306,6 +310,7 @@
                     button.setAttribute("aria-pressed", String(activeDeityFilter === deity));
                     button.addEventListener("click", () => {
                         activeDeityFilter = activeDeityFilter === deity ? "" : deity;
+                        selectedOnly = false;
                         renderAshtakamFilters();
                         renderSongs();
                     });
@@ -326,7 +331,9 @@
             }
 
             function renderSongs() {
-                const matches = matchingSongs();
+                const matches = selectedOnly ? songs.filter(song => song.id === selectedId) : matchingSongs();
+                const showAllButton = document.getElementById("show-all-button");
+                showAllButton.hidden = !selectedOnly;
                 document.getElementById("result-count").textContent = `${matches.length} ${matches.length === 1 ? "song" : "songs"}`;
                 list.innerHTML = "";
                 if (!matches.length) {
@@ -340,10 +347,24 @@
                     row.style.animationDelay = `${index * 35}ms`;
                     row.setAttribute("aria-current", String(song.id === selectedId));
                     row.innerHTML = `<span class="song-symbol" aria-hidden="true">${song.symbol}</span><span class="song-info"><strong>${song.title}</strong><span>${song.section} · ${song.deity} · ${song.language}${saved.has(song.id) ? " · Saved" : ""}</span></span><span class="row-arrow" aria-hidden="true">›</span>`;
-                    row.addEventListener("click", () => { selectedId = song.id; renderSongs(); renderSelected(); });
+                    row.addEventListener("click", () => {
+                        selectedId = song.id;
+                        activeDeityFilter = "";
+                        selectedOnly = true;
+                        renderBajanFilters();
+                        renderShlokaFilters();
+                        renderAshtakamFilters();
+                        renderSongs();
+                        renderSelected();
+                    });
                     list.append(row);
                 });
             }
+
+            document.getElementById("show-all-button").addEventListener("click", () => {
+                selectedOnly = false;
+                renderSongs();
+            });
 
             function currentSong() { return songs.find(song => song.id === selectedId); }
 
@@ -415,7 +436,10 @@
                 toastTimeout = setTimeout(() => toast.classList.remove("visible"), 2100);
             }
 
-            search.addEventListener("input", renderSongs);
+            search.addEventListener("input", () => {
+                selectedOnly = false;
+                renderSongs();
+            });
             document.getElementById("favorite-button").addEventListener("click", () => {
                 if (saved.has(selectedId)) saved.delete(selectedId); else saved.add(selectedId);
                 localStorage.setItem("saajha-saved", JSON.stringify([...saved]));
