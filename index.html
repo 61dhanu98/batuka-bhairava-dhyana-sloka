@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#f7f4ec" />
+        <title>Shivanandi | Devotional songs & lyrics</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+        <style>
+            :root {
+                color-scheme: light;
+                --paper: #f7f4ec;
+                --paper-deep: #eee9dc;
+                --ink: #202d25;
+                --muted: #72776e;
+                --green: #315a43;
+                --green-deep: #213e30;
+                --saffron: #c9793e;
+                --line: #ded9cc;
+                --white: #fffefa;
+                --serif: "Playfair Display", Georgia, serif;
+                --sans: "DM Sans", "Segoe UI", sans-serif;
+            }
+
+            * { box-sizing: border-box; }
+            body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink); font-family: var(--sans); }
+            button, input { font: inherit; }
+            button { color: inherit; }
+            .site-header { height: 76px; display: flex; align-items: center; justify-content: space-between; padding: 0 6.2%; border-bottom: 1px solid var(--line); }
+            .brand { display: inline-flex; align-items: center; gap: 11px; color: var(--green-deep); text-decoration: none; }
+            .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid #b6bba7; border-radius: 50%; color: var(--saffron); font-family: var(--serif); font-size: 19px; }
+            .brand-name { font-family: var(--serif); font-size: 23px; font-weight: 600; letter-spacing: 0; }
+            .header-note { color: var(--muted); font-size: 13px; }
+            main { width: min(1120px, 88%); margin: 0 auto; }
+            .intro { min-height: 270px; display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 42px 0 34px; animation: rise-in .7s ease both; }
+            .intro-copy { max-width: 600px; }
+            .eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 13px; color: var(--saffron); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+            .eyebrow::before { width: 22px; height: 1px; content: ""; background: currentColor; }
+            h1 { margin: 0; font-family: var(--serif); font-size: 46px; font-weight: 500; letter-spacing: 0; line-height: 1.12; }
+            .intro-copy > p:last-child { max-width: 52ch; margin: 14px 0 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
+            .intro-image { width: 280px; height: 174px; flex: 0 0 280px; border-radius: 4px; background: #677253 url("https://images.unsplash.com/photo-1604608672516-a7c08e7f2e8c?auto=format&fit=crop&w=900&q=85") center 48% / cover; position: relative; }
+            .intro-image::after { position: absolute; inset: 0; border: 1px solid rgba(255,255,255,.28); content: ""; }
+            .library { display: grid; grid-template-columns: minmax(0, 1fr) 545px; gap: 18px; align-items: start; padding: 16px 0 76px; border-top: 1px solid var(--line); }
+            .browse { min-width: 0; }
+            .browse-top { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 8px 0 18px; }
+            .browse h2, .song-panel h2 { margin: 0; font-family: var(--serif); font-size: 25px; font-weight: 500; letter-spacing: 0; }
+            .count { color: var(--muted); font-size: 12px; white-space: nowrap; }
+            .count-row { width: 100%; margin: -9px 0 10px; text-align: right; }
+            .search-wrap { position: relative; display: block; width: 100%; margin-bottom: 17px; }
+            .search-icon { position: absolute; left: 14px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+            .search { width: 100%; height: 44px; padding: 0 15px 0 41px; border: 1px solid var(--line); border-radius: 3px; outline: none; background: var(--white); color: var(--ink); font-size: 13px; }
+            .search:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(49,90,67,.1); }
+            .filters { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 19px; }
+            .filter { min-height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 2px; background: transparent; color: #60665d; cursor: pointer; font-size: 12px; transition: background .16s ease, color .16s ease, border-color .16s ease; }
+            .filter:hover { border-color: #9ca797; }
+            .filter[aria-pressed="true"] { border-color: var(--green); background: var(--green); color: white; }
+            .subcategory-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: -7px 0 19px; padding: 11px 12px; border: 1px solid var(--line); background: rgba(255,254,250,.55); }
+            .subcategory-filters[hidden] { display: none; }
+            .subcategory-label { margin-right: 4px; color: var(--muted); font-size: 11px; }
+            .song-list { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; gap: 8px; }
+            .song-row { display: flex; align-items: center; gap: 13px; min-height: 75px; padding: 11px 12px; border: 1px solid transparent; background: rgba(255,254,250,.66); cursor: pointer; text-align: left; transition: border-color .16s ease, background .16s ease, transform .16s ease; animation: rise-in .42s ease both; }
+            .song-row:hover { border-color: #cbc9b9; transform: translateY(-1px); }
+            .song-row[aria-current="true"] { border-color: #91a08e; background: var(--white); }
+            .song-symbol { width: 43px; height: 43px; flex: 0 0 43px; display: grid; place-items: center; border: 1px solid #e1ddcf; border-radius: 50%; color: var(--saffron); font-family: var(--serif); font-size: 19px; }
+            .song-info { min-width: 0; flex: 1; }
+            .song-info strong { display: block; overflow: hidden; color: var(--ink); font-family: var(--serif); font-size: 16px; font-weight: 600; letter-spacing: 0; text-overflow: ellipsis; white-space: nowrap; }
+            .song-info span { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; }
+            .row-arrow { color: #8f9588; font-size: 19px; }
+            .empty-state { padding: 32px 16px; border: 1px dashed var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; text-align: center; }
+            .song-panel { position: sticky; top: 20px; overflow: hidden; border: 1px solid var(--line); background: var(--white); }
+            .panel-head { padding: 23px 23px 18px; border-bottom: 1px solid #e8e4d9; }
+            .panel-kicker { margin: 0 0 8px; color: var(--saffron); font-size: 10px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+            .song-panel h2 { font-size: 25px; }
+            .song-meta { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+            .panel-actions { display: flex; align-items: center; gap: 6px; margin-top: 17px; }
+            .action-button { width: 35px; height: 34px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 2px; background: transparent; color: var(--green-deep); cursor: pointer; }
+            .action-button:hover { background: #f2f0e7; }
+            .action-button svg { width: 15px; height: 15px; }
+            .action-button[aria-pressed="true"] { color: #b74e39; }
+            .action-label { margin-left: 5px; color: var(--muted); font-size: 11px; }
+            .lyrics { min-height: 245px; padding: 21px 24px 12px; color: #39443c; font-family: var(--serif); font-size: 16px; line-height: 1.85; white-space: pre-line; }
+            .lyrics .centered-marker { display: block; text-align: center; }
+            .lyrics .refrain { color: var(--green); font-style: italic; }
+            .song-details { margin-top: -8px; padding: 0 24px 25px; }
+            .song-details[hidden] { display: none; }
+            .song-details h3 { margin: 0 0 15px; color: var(--green-deep); font-family: var(--serif); font-size: 18px; font-weight: 600; line-height: 1.4; }
+            .song-details-head, .song-details-paragraph { margin: 0; color: var(--muted); font-family: var(--sans); font-size: 13px; line-height: 1.85; }
+            .song-details-head { white-space: pre-line; }
+            .song-details-head strong { color: #0d0d0dd6; }
+            .song-details-paragraph { margin-top: 9px; white-space: pre-line; }
+            .panel-foot { display: flex; justify-content: space-between; padding: 12px 23px; border-top: 1px solid #e8e4d9; color: var(--muted); font-size: 10px; }
+            footer { display: flex; justify-content: space-between; gap: 16px; padding: 18px 6.2%; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+            .toast { position: fixed; right: 22px; bottom: 22px; padding: 11px 15px; background: var(--green-deep); color: white; font-size: 12px; opacity: 0; transform: translateY(8px); pointer-events: none; transition: .2s ease; }
+            .toast.visible { opacity: 1; transform: translateY(0); }
+            @keyframes rise-in { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+            @media (max-width: 940px) {
+                .library { grid-template-columns: 1fr; gap: 25px; }
+                .song-panel { position: static; }
+                .lyrics { min-height: 0; }
+            }
+            @media (max-width: 760px) {
+                .site-header { height: 65px; padding: 0 6%; }
+                .header-note { font-size: 11px; }
+                main { width: 88%; }
+                .intro { min-height: auto; padding: 35px 0 27px; }
+                h1 { font-size: 38px; }
+                .intro-image { width: 190px; height: 150px; flex-basis: 190px; }
+                .library { grid-template-columns: 1fr; gap: 25px; }
+                .song-panel { position: static; }
+                .lyrics { min-height: 0; }
+            }
+            @media (max-width: 520px) {
+                .brand-name { font-size: 21px; }
+                .header-note { max-width: 130px; text-align: right; }
+                .intro { display: block; padding-top: 32px; }
+                h1 { font-size: 36px; }
+                .intro-copy > p:last-child { font-size: 14px; }
+                .intro-image { width: 100%; height: 155px; margin-top: 22px; background-position: center 43%; }
+                .library { padding-top: 13px; }
+                .browse-top { margin-top: 4px; }
+                .browse h2 { font-size: 23px; }
+                footer { padding-right: 6%; padding-left: 6%; }
+            }
+            @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+        </style>
+    </head>
+
+
+    <body>
+        <header class="site-header">
+            <a class="brand" href="#top" aria-label="Shivanandi home"><span class="brand-mark" aria-hidden="true">ॐ</span><span class="brand-name">Shivanandi</span></a>
+            <span class="header-note">Words for the moments that matter</span>
+        </header>
+        <main id="top">
+            <section class="intro" aria-labelledby="page-title">
+
+                <div class="intro-copy">
+                    <p class="eyebrow">A devotional songbook</p>
+                    <h1 id="page-title">Let the words<br />bring you home.</h1>
+                    <p>Find lyrics for prayer, reflection, and the songs we carry with us. A growing collection to read, save, and share.</p>
+                </div>
+
+                <div class="intro-image" role="img" aria-label="A peaceful devotional setting"></div>
+            
+            </section>
+            <section class="library" aria-label="Song library">
+                
+                <div class="browse">
+                    <div class="browse-top"><h2>Explore the songbook</h2></div>
+                    <div class="count-row"><span class="count" id="result-count" aria-live="polite"></span></div>
+                    <label class="search-wrap">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+                        <input class="search" id="search" type="search" placeholder="Search songs, traditions, or language" autocomplete="off" aria-label="Search songs" />
+                    </label>
+                    <div class="filters" id="filters" aria-label="Filter songs by tradition"></div>
+                    <div class="subcategory-filters" id="bajan-filters" aria-label="Filter Bajans by deity" hidden></div>
+                    <div class="subcategory-filters" id="shloka-filters" aria-label="Filter Shlokas by deity" hidden></div>
+                    <div class="subcategory-filters" id="ashtakam-filters" aria-label="Filter Ashtakam by deity" hidden></div>
+                    <div class="song-list" id="song-list" aria-live="polite"></div>
+                </div>
+
+                <aside class="song-panel" aria-label="Selected song lyrics">
+
+                    <div class="panel-head">
+                        <p class="panel-kicker" id="song-category"></p>
+                        <h2 id="song-title"></h2>
+                        <p class="song-meta" id="song-meta"></p>
+
+                        <div class="panel-actions">
+                            <button class="action-button" id="favorite-button" type="button" aria-label="Save song" aria-pressed="false" title="Save song">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6Z"></path></svg>
+                            </button>
+                            <button class="action-button" id="copy-button" type="button" aria-label="Copy lyrics" title="Copy lyrics">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="1.5"></rect><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v10A1.5 1.5 0 0 0 5.5 17H8"></path></svg>
+                            </button>
+                            <button class="action-button" id="share-button" type="button" aria-label="Share song" title="Share song">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="18" cy="5" r="2.5"></circle><circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="19" r="2.5"></circle><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"></path></svg>
+                            </button>
+                            <span class="action-label" id="saved-label">Save for later</span>
+                        </div>
+
+                    </div>
+
+                    <div class="lyrics" id="lyrics"></div>
+                    <section class="song-details" id="song-details" aria-labelledby="song-details-heading" hidden>
+                        <h3 id="song-details-heading"></h3>
+                        <p class="song-details-head" id="song-details-head"></p>
+                        <p class="song-details-paragraph" id="song-details-paragraph"></p>
+                    </section>
+                    <div class="panel-foot"><span>Shivanandi songbook</span><span>Devotional lyrics</span></div>
+                </aside>
+            </section>
+        </main>
+        <footer><span>Made for moments of reflection.</span><span>Shivanandi · Devotional songbook by Dhanraj Amin</span></footer>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        <script src="./songs.js"></script>
+        <script src="./songs2.js"></script>
+        <script src="./songs3.js"></script>
+        <script>
+
+// Scripting for the Shivanandi songbook application
+
+            const songs = window.songs;
+
+            const mainCategories = ["All songs", "Bajans", "Shloka", "Stuthi-Dhyana", "Ashtakam", "Saved"];
+            const filters = document.getElementById("filters");
+            const bajanFilters = document.getElementById("bajan-filters");
+            const shlokaFilters = document.getElementById("shloka-filters");
+            const ashtakamFilters = document.getElementById("ashtakam-filters");
+            const list = document.getElementById("song-list");
+            const search = document.getElementById("search");
+            const saved = new Set(JSON.parse(localStorage.getItem("saajha-saved") || "[]"));
+            let activeFilter = "All songs";
+            let activeDeityFilter = "";
+            let selectedId = songs[0].id;
+            let toastTimeout;
+
+            function renderFilters() {
+                filters.innerHTML = "";
+                mainCategories.forEach(category => {
+                    const button = document.createElement("button");
+                    button.className = "filter";
+                    button.type = "button";
+                    button.textContent = category;
+                    button.setAttribute("aria-pressed", String(activeFilter === category));
+                    button.addEventListener("click", () => {
+                        activeFilter = category;
+                        activeDeityFilter = "";
+                        renderFilters();
+                        renderBajanFilters();
+                        renderShlokaFilters();
+                        renderAshtakamFilters();
+                        renderSongs();
+                    });
+                    filters.append(button);
+                });
+            }
+
+            function renderBajanFilters() {
+                bajanFilters.hidden = activeFilter !== "Bajans";
+                bajanFilters.replaceChildren();
+                if (bajanFilters.hidden) return;
+
+                const label = document.createElement("span");
+                label.className = "subcategory-label";
+                label.textContent = "Filter by deity";
+                bajanFilters.append(label);
+                const deities = [...new Set(songs.filter(song => song.section === "Bajans").map(song => song.deity))];
+                deities.forEach(deity => {
+                    const button = document.createElement("button");
+                    button.className = "filter";
+                    button.type = "button";
+                    button.textContent = deity;
+                    button.setAttribute("aria-pressed", String(activeDeityFilter === deity));
+                    button.addEventListener("click", () => {
+                        activeDeityFilter = activeDeityFilter === deity ? "" : deity;
+                        renderBajanFilters();
+                        renderSongs();
+                    });
+                    bajanFilters.append(button);
+                });
+            }
+
+            function renderShlokaFilters() {
+                shlokaFilters.hidden = activeFilter !== "Shloka";
+                shlokaFilters.replaceChildren();
+                if (shlokaFilters.hidden) return;
+
+                const label = document.createElement("span");
+                label.className = "subcategory-label";
+                label.textContent = "Filter by deity";
+                shlokaFilters.append(label);
+                const deities = [...new Set(songs.filter(song => song.section === "Shloka").map(song => song.deity))];
+                deities.forEach(deity => {
+                    const button = document.createElement("button");
+                    button.className = "filter";
+                    button.type = "button";
+                    button.textContent = deity;
+                    button.setAttribute("aria-pressed", String(activeDeityFilter === deity));
+                    button.addEventListener("click", () => {
+                        activeDeityFilter = activeDeityFilter === deity ? "" : deity;
+                        renderShlokaFilters();
+                        renderSongs();
+                    });
+                    shlokaFilters.append(button);
+                });
+            }            
+
+            function renderAshtakamFilters() {
+                ashtakamFilters.hidden = activeFilter !== "Ashtakam";
+                ashtakamFilters.replaceChildren();
+                if (ashtakamFilters.hidden) return;
+
+                const label = document.createElement("span");
+                label.className = "subcategory-label";
+                label.textContent = "Filter by deity";
+                ashtakamFilters.append(label);
+                const deities = [...new Set(songs.filter(song => song.section === "Ashtakam").map(song => song.deity))];
+                deities.forEach(deity => {
+                    const button = document.createElement("button");
+                    button.className = "filter";
+                    button.type = "button";
+                    button.textContent = deity;
+                    button.setAttribute("aria-pressed", String(activeDeityFilter === deity));
+                    button.addEventListener("click", () => {
+                        activeDeityFilter = activeDeityFilter === deity ? "" : deity;
+                        renderAshtakamFilters();
+                        renderSongs();
+                    });
+                    ashtakamFilters.append(button);
+                });
+            }           
+            
+            function matchingSongs() {
+                const query = search.value.trim().toLowerCase();
+                return songs.filter(song => {
+                    const matchesSection = song.section.toLowerCase() === activeFilter.toLowerCase();
+                    const supportsDeityFilter = activeFilter === "Bajans" || activeFilter === "Shloka" || activeFilter === "Ashtakam";
+                    const matchesFilter = activeFilter === "All songs" || (activeFilter === "Saved" ? saved.has(song.id) : matchesSection && (!supportsDeityFilter || !activeDeityFilter || song.deity === activeDeityFilter));
+                    const searchableText = [song.title, song.searchTerms, song.id.replace(/-/g, " "), song.section, song.deity, song.language, song.lyrics].join(" ").toLowerCase();
+                    const matchesSearch = searchableText.includes(query);
+                    return matchesFilter && matchesSearch;
+                });
+            }
+
+            function renderSongs() {
+                const matches = matchingSongs();
+                document.getElementById("result-count").textContent = `${matches.length} ${matches.length === 1 ? "song" : "songs"}`;
+                list.innerHTML = "";
+                if (!matches.length) {
+                    list.innerHTML = '<div class="empty-state">No songs found. Try another search or browse all songs.</div>';
+                    return;
+                }
+                matches.forEach((song, index) => {
+                    const row = document.createElement("button");
+                    row.type = "button";
+                    row.className = "song-row";
+                    row.style.animationDelay = `${index * 35}ms`;
+                    row.setAttribute("aria-current", String(song.id === selectedId));
+                    row.innerHTML = `<span class="song-symbol" aria-hidden="true">${song.symbol}</span><span class="song-info"><strong>${song.title}</strong><span>${song.section} · ${song.deity} · ${song.language}${saved.has(song.id) ? " · Saved" : ""}</span></span><span class="row-arrow" aria-hidden="true">›</span>`;
+                    row.addEventListener("click", () => { selectedId = song.id; renderSongs(); renderSelected(); });
+                    list.append(row);
+                });
+            }
+
+            function currentSong() { return songs.find(song => song.id === selectedId); }
+
+            function renderEmphasizedText(element, text, terms = []) {
+                element.replaceChildren();
+                let remaining = text;
+                const unmatchedTerms = [...terms];
+                while (unmatchedTerms.length) {
+                    const matches = unmatchedTerms
+                        .map(term => ({ term, index: remaining.indexOf(term) }))
+                        .filter(match => match.index !== -1)
+                        .sort((first, second) => first.index - second.index);
+                    if (!matches.length) break;
+                    const { term, index } = matches[0];
+                    element.append(document.createTextNode(remaining.slice(0, index)));
+                    const strong = document.createElement("strong");
+                    strong.textContent = term;
+                    element.append(strong);
+                    remaining = remaining.slice(index + term.length);
+                    unmatchedTerms.splice(unmatchedTerms.indexOf(term), 1);
+                }
+                element.append(document.createTextNode(remaining));
+            }
+
+            function renderSelected() {
+                const song = currentSong();
+                document.getElementById("song-category").textContent = `${song.section} > ${song.deity}`;
+                document.getElementById("song-title").textContent = song.title;
+                document.getElementById("song-meta").textContent = `${song.language} · Devotional lyrics`;
+                const lyricsElement = document.getElementById("lyrics");
+                lyricsElement.replaceChildren();
+                const lyricLines = song.lyrics.split("\n");
+                const lyricTerms = song.lyricsBold || [];
+                lyricLines.forEach((line, index) => {
+                    if (line.trim() === "**********") {
+                        const marker = document.createElement("span");
+                        marker.className = "centered-marker";
+                        marker.textContent = line.trim();
+                        lyricsElement.append(marker);
+                    } else {
+                        const lineWrapper = document.createElement("span");
+                        if (lyricTerms.length) {
+                            renderEmphasizedText(lineWrapper, line, lyricTerms);
+                        } else {
+                            lineWrapper.textContent = line;
+                        }
+                        lyricsElement.append(lineWrapper);
+                    }
+                    if (index < lyricLines.length - 1) lyricsElement.append(document.createTextNode("\n"));
+                });
+
+                const details = document.getElementById("song-details");
+                details.hidden = !song.detailsHeading || (!song.detailshead && !song.detailsParagraph);
+                document.getElementById("song-details-heading").textContent = song.detailsHeading || "";
+                renderEmphasizedText(document.getElementById("song-details-head"), song.detailshead || "", song.detailsheadBold || []);
+                renderEmphasizedText(document.getElementById("song-details-paragraph"), song.detailsParagraph || "", song.detailsParagraphBold || []);
+                const favorite = document.getElementById("favorite-button");
+                favorite.setAttribute("aria-pressed", String(saved.has(song.id)));
+                favorite.setAttribute("aria-label", saved.has(song.id) ? "Remove saved song" : "Save song");
+                favorite.title = saved.has(song.id) ? "Remove saved song" : "Save song";
+                document.getElementById("saved-label").textContent = saved.has(song.id) ? "Saved to your list" : "Save for later";
+            }
+
+            function showToast(message) {
+                const toast = document.getElementById("toast");
+                toast.textContent = message;
+                toast.classList.add("visible");
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => toast.classList.remove("visible"), 2100);
+            }
+
+            search.addEventListener("input", renderSongs);
+            document.getElementById("favorite-button").addEventListener("click", () => {
+                if (saved.has(selectedId)) saved.delete(selectedId); else saved.add(selectedId);
+                localStorage.setItem("saajha-saved", JSON.stringify([...saved]));
+                renderSelected(); renderSongs();
+            });
+            document.getElementById("copy-button").addEventListener("click", async () => {
+                try { await navigator.clipboard.writeText(`${currentSong().title}\n\n${currentSong().lyrics}`); showToast("Lyrics copied to clipboard"); }
+                catch { showToast("Clipboard access is unavailable in this browser"); }
+            });
+            document.getElementById("share-button").addEventListener("click", async () => {
+                const song = currentSong();
+                if (navigator.share) {
+                    try { await navigator.share({ title: song.title, text: `${song.title}\n\n${song.lyrics}` }); } catch (error) { if (error.name !== "AbortError") showToast("Unable to share this song"); }
+                } else {
+                    try { await navigator.clipboard.writeText(`${song.title}\n\n${song.lyrics}`); showToast("Lyrics copied so you can share them"); }
+                    catch { showToast("Sharing is unavailable in this browser"); }
+                }
+            });
+
+            renderFilters();
+            renderBajanFilters();
+            renderShlokaFilters();
+            renderAshtakamFilters();
+            renderSongs();
+            renderSelected();
+        </script>
+    </body>
+</html>
