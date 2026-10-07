@@ -20,8 +20,12 @@ window.songs.push(
         कामेश्वरो वैश्रवणो ददातु । 
         कुबेराय वैश्रवणाय। महाराजाय विधमहे ।
 
-        This shloka is a prayer to Lord Kubera, the god of wealth and prosperity. It is often recited to invoke his blessings for financial stability and success.`,
-            detailsParagraphBold: ["Lord Kubera"],
+        This shloka is a prayer to Lord Kubera, the god of wealth and prosperity. It is often recited to invoke his blessings for financial stability and success.
+            
+        The Vedas are organized into four vast layers of texts: Samhitas (hymns), Brahmanas (rituals), Aranyakas (theology/forest texts), and Upanishads (philosophy). This mantra is preserved in the Taittiriya Aranyaka, making it an authentic, thousands-of-years-old Vedic text (Sruti) rather than a later-era poetic composition or sloka.
+        
+        This mantra is taken from the Taittiriya Aranyaka, which is a sacred text belonging to the Krishna Yajurveda`,
+            detailsParagraphBold: ["Lord Kubera" , "Samhitas", "Brahmanas", "Aranyakas" , "Upanishads" ,"Taittiriya Aranyaka" , "Krishna Yajurveda"],
     },
 
     {
